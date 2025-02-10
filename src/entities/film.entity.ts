@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Reservation } from './reservation.entity';
 
 @Entity()
 export class Film {
@@ -8,12 +9,6 @@ export class Film {
   @Column()
   title: string;
 
-  @Column()
-  description: string;
-
-  @Column()
-  posterPath: string;
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  releaseDate: Date;
+  @OneToMany(() => Reservation, (reservation) => reservation.film)
+  reservations: Reservation[];
 }
