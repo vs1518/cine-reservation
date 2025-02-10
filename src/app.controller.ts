@@ -2,7 +2,7 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { ApiTags, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { UserService } from './modules/user/user.service';
 
-@ApiTags('User')  // Assure-toi d'ajouter ce décorateur pour Swagger
+@ApiTags('User')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly userService: UserService) {}
@@ -10,7 +10,7 @@ export class AuthController {
   @Post('register')
   @ApiBody({
     description: 'Inscription d\'un nouvel utilisateur',
-    type: Object,  // Cela permet d'afficher le body dans Swagger
+    type: Object,
     examples: {
       default: {
         summary: 'Utilisateur pour test',

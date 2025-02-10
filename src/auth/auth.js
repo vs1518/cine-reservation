@@ -2,7 +2,6 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-// Middleware pour vérifier le token
 function verifyToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   if (!authHeader) {
@@ -23,7 +22,6 @@ function verifyToken(req, res, next) {
   });
 }
 
-// Route protégée pour récupérer le profil
 router.get('/profile', verifyToken, (req, res) => {
   res.json({
     message: "Profil de l'utilisateur récupéré avec succès.",
@@ -31,7 +29,6 @@ router.get('/profile', verifyToken, (req, res) => {
   });
 });
 
-// Route de test (sans middleware)
 router.get('/test', (req, res) => {
   res.send("La route test fonctionne !");
 });

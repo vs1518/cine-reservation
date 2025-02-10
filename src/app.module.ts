@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './modules/user/user.module';
-import { Film } from './entities/film.entity';
 import { User } from './entities/user.entity';
+import { Film } from './entities/film.entity';
 import { Reservation } from './entities/reservation.entity';
 
 @Module({
@@ -16,9 +16,12 @@ import { Reservation } from './entities/reservation.entity';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Film, User, Reservation]),
+    TypeOrmModule.forFeature([User, Film, Reservation]),
     AuthModule,
-    UserModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET || 'supersecret',
+      signOptions: { expiresIn: '1h' },
+    }),
   ],
 })
 export class AppModule {}

@@ -22,9 +22,11 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 
+ 
   @Post('profile')
   @UseGuards(JwtAuthGuard)
   getProfile(@Request() req) {
+    console.log("User dans profile:", req.user);
     return req.user;
   }
 }

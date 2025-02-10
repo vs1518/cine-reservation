@@ -9,6 +9,8 @@ export class JwtAuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const authHeader = request.headers.authorization;
 
+    console.log("Authorization Header (inside guard):", authHeader);
+
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return false;
     }
@@ -17,9 +19,11 @@ export class JwtAuthGuard implements CanActivate {
 
     try {
       const decoded = this.jwtService.verify(token);
+      console.log("✅ Token décodé avec succès:", decoded);
       request.user = decoded;
       return true;
-    } catch {
+    } catch (error){
+    console.error("❌ Erreur lors de la vérification du token:", error);
       return false;
     }
   }
